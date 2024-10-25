@@ -1,10 +1,10 @@
 {
-  "name": "web3-scaffold-vite",
+  "name": "ton-badge",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "dev:testnet": "VITE_NETWORK=testnet vite",
     "dev:mainnet": "VITE_NETWORK=mainnet vite",
     "build": "tsc && vite build",
@@ -23,18 +23,32 @@
     "src/**/*.{js,jsx,ts,tsx}": "npm run lint:fix"
   },
   "dependencies": {
+    "@radix-ui/react-collapsible": "^1.1.1",
+    "@radix-ui/react-dialog": "^1.1.2",
+    "@radix-ui/react-popover": "^1.1.2",
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
+    "@ton/core": "^0.59.0",
+    "@ton/crypto": "^3.3.0",
+    "@ton/ton": "^15.1.0",
+    "@tonconnect/ui-react": "^2.0.9",
+    "@twa-dev/sdk": "^7.10.1",
+    "@vitejs/plugin-basic-ssl": "^1.1.0",
+    "ahooks": "^3.8.1",
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
     "lucide-react": "^0.427.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.1",
+    "sonner": "^1.5.0",
     "store": "^2.0.12",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
+    "vaul": "^1.1.0",
+    "vite-plugin-node-polyfills": "^0.22.0",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
@@ -53,11 +67,15 @@
     "lint-staged": "^15.2.7",
     "only-allow": "^1.2.1",
     "postcss": "^8.4.41",
-    "prettier": "3.3.2",
+    "prettier": "^3.3.2",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "prettier-plugin-tailwindcss": "^0.6.8",
     "tailwindcss": "^3.4.9",
+    "tailwindcss-animated": "^1.1.2",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
-    "vite-plugin-pwa": "^0.20.0"
+    "vite-plugin-pwa": "^0.20.0",
+    "vite-plugin-svgr": "^4.2.0"
   },
   "browserslist": {
     "production": [

@@ -1,8 +1,8 @@
-import axios from 'axios';
-import store from 'store';
+import twa from '@twa-dev/sdk';
+import axios, { AxiosResponse } from 'axios';
 
 // 创建 axios 实例
-const request = axios.create({
+export const request = axios.create({
   baseURL: import.meta.env.VITE_BASEURL,
   timeout: 30000,
   headers: {
@@ -15,8 +15,8 @@ const request = axios.create({
 // 请求拦截器
 request.interceptors.request.use(
   config => {
-    const token = store.get('token');
-    if (token) config.headers.Authorization = 'Bearer ' + token;
+    const initData = twa.initData;
+    config.headers.Authorization = `tma ${initData}`;
     return config;
   },
   error => {
@@ -25,24 +25,26 @@ request.interceptors.request.use(
   }
 );
 
+type Data = {
+  code: number;
+  message: string;
+  data: any;
+};
+
 // 响应拦截器
 request.interceptors.response.use(
-  response => {
-    if (response.status < 200 && response.status >= 400) {
-      return Promise.reject(response);
+  (response: AxiosResponse<Data>) => {
+    const data = response.data;
+    if (data.code < 200 && data.code >= 400) {
+      return Promise.reject(response.data);
     }
 
     // 2×× 范围内的状态码都会触发该函数
     // 对响应数据做点什么
-    return response.data;
+
+    return data.data;
   },
   error => {
-    // 401 token 失效处理
-    if (error.response.status === 401) {
-      // 清除本地用户数据
-    }
     return Promise.reject(error);
   }
 );
-
-export default request;

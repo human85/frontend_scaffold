@@ -1,6 +1,6 @@
-import { createBrowserRouter } from 'react-router-dom';
 import Layout from '@/layout';
-import { Home } from '@/views';
+import { Badge, Friends, Tasks } from '@/views';
+import { createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
@@ -10,7 +10,15 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: <Badge />,
+      },
+      {
+        path: 'tasks',
+        element: <Tasks />,
+      },
+      {
+        path: 'friends',
+        element: <Friends />,
       },
     ],
   },
