@@ -1,12 +1,14 @@
 import { LogoIcon, StageIcon } from '@/assets';
 import { Button, Header, Navbar, Toaster } from '@/components';
-import { useCreateUser } from '@/hooks';
+import { useCreateUser, useEruda } from '@/hooks';
 import { useAppStore } from '@/store';
 import { createPortal } from 'react-dom';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 
 const Layout = () => {
   const isNewUser = useAppStore(state => state.isNewUser);
+
+  useEruda();
 
   if (isNewUser) return <LandingPage />;
 

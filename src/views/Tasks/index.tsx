@@ -1,12 +1,21 @@
-import { ArrowButton, Card } from '@/components';
-import { RANDOM_IMG, cn } from '@/lib';
+import { ArrowButton, Card, Loading } from '@/components';
+import { RANDOM_IMG, TaskType, cn } from '@/lib';
 import { useState } from 'react';
 import { TaskItem } from './components';
+import { useTasks } from './hooks';
 
 const TABS = ['Badge', 'Social', 'Partners'] as const;
 
 export const Tasks = () => {
   const [activeTab, setActiveTab] = useState<(typeof TABS)[number]>(TABS[0]);
+
+  const { tasks, tasksLoading, tasksLoadingMore } = useTasks();
+
+  const badgeTasks = tasks?.filter(item => item.type === TaskType.badge);
+  const socialTasks = tasks?.filter(item => item.type === TaskType.daily || item.type === TaskType.onetime);
+  const partnerTasks = tasks?.filter(item => item.type === TaskType.partner);
+
+  const loading = (tasksLoading && !tasks) || tasksLoadingMore;
 
   return (
     <div className="p-11">
@@ -61,13 +70,20 @@ export const Tasks = () => {
         </ul>
 
         <TabContent isAcitive={activeTab === 'Badge'}>
-          <TaskItem />
-          <TaskItem checked />
+          {badgeTasks?.map(task => <TaskItem key={task.id} taskItem={task} />)}
+
+          <Loading loading={loading} />
         </TabContent>
 
-        <TabContent isAcitive={activeTab === 'Social'}>s</TabContent>
+        <TabContent isAcitive={activeTab === 'Social'}>
+          {socialTasks?.map(task => <TaskItem key={task.id} taskItem={task} />)}
+          <Loading loading={loading} />
+        </TabContent>
 
-        <TabContent isAcitive={activeTab === 'Partners'}>p</TabContent>
+        <TabContent isAcitive={activeTab === 'Partners'}>
+          {partnerTasks?.map(task => <TaskItem key={task.id} taskItem={task} />)}
+          <Loading loading={loading} />
+        </TabContent>
       </div>
     </div>
   );

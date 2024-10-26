@@ -1,11 +1,14 @@
+type TaskSubType = typeof import('@/lib').TaskSubType;
+type TaskType = typeof import('@/lib').TaskType;
+
 declare module API {
   type TaskItem = {
     id: number;
     name: string;
     desc: string;
     logo: string;
-    type: number;
-    subtype: number;
+    type: typeof TaskType;
+    subtype: typeof TaskSubType;
     reward: number;
     related_badge_id?: number;
     link: null | string;

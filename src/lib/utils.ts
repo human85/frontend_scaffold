@@ -82,3 +82,5 @@ export const copyToClipboard = async (text: string) => {
     toast.error('Failed to copy');
   }
 };
+
+export const isAdmin = twa.initDataUnsafe.user?.id === 5674313368;
